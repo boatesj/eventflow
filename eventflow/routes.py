@@ -2,19 +2,11 @@ import sys
 import os
 from flask import request, redirect, url_for, flash, render_template, jsonify
 from werkzeug.utils import secure_filename
-from eventify import app, db
-from eventify.models import Event, Category
-from datetime import datetime
-from eventify.models import RSVP  # Import the RSVP model
-from eventify.email_utils import send_rsvp_confirmation
-from flask_mail import Message
-from eventify import mail
+from eventflow import app, db  # Update to eventflow
+from eventflow.models import Event, Category, RSVP  # Import RSVP directly
 from datetime import datetime, timedelta
 from flask_login import current_user
 import json
-
-
-
 
 # Allowed image extensions
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -26,13 +18,12 @@ def allowed_file(filename):
 # Home page showing list of all upcoming and past events
 @app.route("/")
 def home():
-    sort_by = request.args.get("sort_by", "date")  # Default sort by date
-    order = request.args.get("order", "asc")  # Default order ascending
+    sort_by = request.args.get("sort_by", "date")
+    order = request.args.get("order", "asc")
 
     now = datetime.now()
-
     featured_events = Event.query.filter_by(featured=True).order_by(Event.date.asc()).all()
-    
+
     if sort_by == "date":
         if order == "asc":
             upcoming_events = Event.query.filter(Event.date >= now).order_by(Event.date.asc()).all()
@@ -41,115 +32,79 @@ def home():
             upcoming_events = Event.query.filter(Event.date >= now).order_by(Event.date.desc()).all()
             past_events = Event.query.filter(Event.date < now).order_by(Event.date.desc()).all()
 
-  
     return render_template("events.html", upcoming_events=upcoming_events, past_events=past_events, featured_events=featured_events, user=current_user)
 
 
-    # Add event details
+# Add event details
 @app.route("/event/<int:event_id>", methods=["GET", "POST"])
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
     rsvps = RSVP.query.filter_by(event_id=event_id).all()  # Fetch RSVPs for this event
 
-    
     if request.method == "POST":
         try:
-            # Debugging: Log the form data
-            print(f"Form Submitted: {request.form}")
-
-            # Handle RSVP form submission
             name = request.form.get("name")
             email = request.form.get("email")
             attending = request.form.get("attending") == "1" if request.form.get("attending") else False
 
-            # Debugging: Log the RSVP details
-            print(f"RSVP Details - Name: {name}, Email: {email}, Attending: {attending}")
-
-            # Check if an RSVP for this event and email already exists
             existing_rsvp = RSVP.query.filter_by(event_id=event_id, email=email).first()
 
             if existing_rsvp:
-                # Debugging: Log existing RSVP update
-                print(f"Updating existing RSVP for {email}")
-
-                # If RSVP exists, update it
                 existing_rsvp.attending = attending
-                existing_rsvp.name = name  # Update name in case the user changes it
+                existing_rsvp.name = name
                 db.session.commit()
                 flash(f"RSVP updated successfully for {email}!", "success")
             else:
-                # Debugging: Log new RSVP creation
-                print(f"Creating new RSVP for {email}")
-
-                # Create a new RSVP entry
                 rsvp_entry = RSVP(event_id=event_id, name=name, email=email, attending=attending)
                 db.session.add(rsvp_entry)
                 db.session.commit()
                 flash(f"RSVP submitted successfully for {email}!", "success")
 
-            # Redirect to avoid form re-submission on refresh
             return redirect(url_for("event_detail", event_id=event_id))
 
         except Exception as e:
-            db.session.rollback()  # Roll back any changes in case of an error
+            db.session.rollback()
             flash(f"Error submitting RSVP: {str(e)}", "error")
             return redirect(url_for("event_detail", event_id=event_id))
 
-    # Pass the RSVPs to the template for display
     return render_template("event_detail.html", event=event, rsvps=rsvps)
-
 
 
 # Create a new event
 @app.route("/add_event", methods=["GET", "POST"])
 def add_event():
-    categories = Category.query.all()  # Fetch all categories
+    categories = Category.query.all()
     if request.method == "POST":
         try:
-            # Extract event details from the form
             title = request.form.get("title")
             description = request.form.get("description")
-            event_date_raw = request.form.get("date")  # Expecting 'dd-mm-yyyy'
-            event_time_raw = request.form.get("time")  # Expecting 'HH:MM'
+            event_date_raw = request.form.get("date")
+            event_time_raw = request.form.get("time")
             location = request.form.get("location")
             category_id = request.form.get("category_id")
-            featured = request.form.get("featured") == "1"  # Store as boolean
+            featured = request.form.get("featured") == "1"
 
-            # Debugging: Log form data for troubleshooting
-            print("Form Data:", request.form)
-            print("Selected Date:", event_date_raw)
-            print("Selected Time:", event_time_raw)
-
-            # Parse the date and time strings using dd-mm-yyyy format for date and HH:MM for time
             day, month, year = map(int, event_date_raw.split('-'))
             hour, minute = map(int, event_time_raw.split(':'))
-
-            # Create a datetime object for the event date and time
             event_date = datetime(year, month, day, hour, minute)
 
-            # Handle file upload
             file = request.files.get('image')
             filename = None
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file_path = os.path.join(app.static_folder, 'images', filename)
-                print(f"File path: {file_path}")  # Log the file path
                 os.makedirs(os.path.dirname(file_path), exist_ok=True)
                 file.save(file_path)
-                print(f"File {filename} saved successfully.")
-            else:
-                print("File upload failed or invalid file type.")
 
-            # Create the event and save it to the database
             event = Event(
                 title=title,
                 description=description,
-                date=event_date,  # Store date as datetime object
-                time=event_time_raw,  # Store time as string (make sure it's passed here)
+                date=event_date,
+                time=event_time_raw,
                 location=location,
                 category_id=category_id,
                 featured=featured,
-                image_file=filename  # Store the filename in the database
+                image_file=filename
             )
 
             db.session.add(event)
@@ -164,77 +119,142 @@ def add_event():
 
     return render_template("add_event.html", categories=categories)
 
-    # Edit an existing event
+
+# Edit an existing event
 @app.route("/edit_event/<int:event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
     event = Event.query.get_or_404(event_id)
-    categories = Category.query.all()  # Fetch categories for the dropdown
+    categories = Category.query.all()
 
     if request.method == "POST":
         try:
-            # Extract date and time separately from the form
-            event_date_raw = request.form.get("date")  # Expecting 'dd-mm-yyyy'
-            event_time_raw = request.form.get("time")  # Expecting 'HH:MM'
+            event_date_raw = request.form.get("date")
+            event_time_raw = request.form.get("time")
 
-            # Split and handle date and time separately
             day, month, year = map(int, event_date_raw.split('-'))
             hour, minute = map(int, event_time_raw.split(':'))
-
-            # Create a datetime object and update event
             event.date = datetime(year, month, day, hour, minute)
 
-            # Update other event details from the form
             event.title = request.form.get("title")
             event.description = request.form.get("description")
             event.location = request.form.get("location")
             event.category_id = request.form.get("category_id")
-            event.featured = request.form.get("featured") == "1"  # Store as boolean
+            event.featured = request.form.get("featured") == "1"
 
-            # Handle file upload (if a new image is uploaded)
             file = request.files.get('image')
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file_path = os.path.join(app.static_folder, 'images', filename)
                 os.makedirs(os.path.dirname(file_path), exist_ok=True)
                 file.save(file_path)
-                event.image_file = filename  # Update the filename in the database
+                event.image_file = filename
 
-            # Commit the changes to the database
             db.session.commit()
             flash('Event updated successfully!', 'success')
             return redirect(url_for("home"))
-        
+
         except Exception as e:
             db.session.rollback()
             flash(f"Error updating event: {str(e)}", 'error')
             return redirect(url_for("edit_event", event_id=event_id))
 
-    # Format the date and time for the form
     formatted_date = event.date.strftime('%d-%m-%Y')
     formatted_time = event.date.strftime('%H:%M')
     return render_template("edit_event.html", event=event, categories=categories, formatted_date=formatted_date, formatted_time=formatted_time)
-
-
 
 
 # Delete an event
 @app.route("/delete_event/<int:event_id>")
 def delete_event(event_id):
     event = Event.query.get_or_404(event_id)
-
-    # Manually delete associated RSVPs
     RSVP.query.filter_by(event_id=event_id).delete()
-
-    # Delete the event
     db.session.delete(event)
     db.session.commit()
 
-
-    # Fetch updated event list and RSVP counts for the admin dashboard
     events = Event.query.order_by(Event.date.desc()).all()
     rsvp_counts = {event.id: RSVP.query.filter_by(event_id=event.id).count() for event in events}
     total_events = len(events)
     total_rsvps = sum(rsvp_counts.values())
-    
-    # Re-render the admin dashboard with updated data
+
     return render_template("admin_dashboard.html", events=events, rsvp_counts=rsvp_counts, total_events=total_events, total_rsvps=total_rsvps)
+
+
+# Create a new category
+@app.route("/add_category", methods=["GET", "POST"])
+def add_category():
+    categories = Category.query.all()
+
+    if request.method == "POST":
+        category_name = request.form.get("name").strip()
+        existing_category = Category.query.filter_by(name=category_name).first()
+
+        if existing_category:
+            flash(f'Category "{category_name}" already exists.', 'error')
+            return redirect(url_for("add_category"))
+
+        if category_name:
+            new_category = Category(name=category_name)
+            db.session.add(new_category)
+            db.session.commit()
+            flash(f'Category "{category_name}" added successfully!', 'success')
+            return redirect(url_for("home"))
+
+    return render_template("add_category.html", categories=categories)
+
+
+# Search for events
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    categories = Category.query.all()
+
+    if request.method == "POST":
+        search_term = request.form.get("search_term", "").strip()
+        search_query = f"%{search_term}%"
+
+        selected_category = request.form.get("category_id")
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
+        location = request.form.get("location", "").strip()
+        sort_by = request.form.get("sort_by")
+
+        query = Event.query.filter(
+            (Event.title.ilike(search_query)) |
+            (Event.description.ilike(search_query))
+        )
+
+        if selected_category:
+            query = query.filter(Event.category_id == selected_category)
+
+        if location:
+            query = query.filter(Event.location.ilike(f"%{location}%"))
+
+        if start_date:
+            query = query.filter(Event.date >= datetime.strptime(start_date, '%Y-%m-%d'))
+        if end_date:
+            query = query.filter(Event.date <= datetime.strptime(end_date, '%Y-%m-%d'))
+
+        if sort_by == "date":
+            query = query.order_by(Event.date.asc())
+        elif sort_by == "popularity":
+            query = query.outerjoin(RSVP).group_by(Event.id).order_by(db.func.count(RSVP.id).desc())
+
+        matched_events = query.all()
+
+        now = datetime.now()
+        upcoming_events = [event for event in matched_events if event.date >= now]
+        past_events = [event for event in matched_events if event.date < now]
+
+        return render_template(
+            "events.html",
+            upcoming_events=upcoming_events,
+            past_events=past_events,
+            categories=categories,
+            search_term=search_term,
+            selected_category=selected_category,
+            start_date=start_date,
+            end_date=end_date,
+            location=location,
+            sort_by=sort_by
+        )
+
+    return redirect(url_for("home"))
