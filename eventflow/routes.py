@@ -258,3 +258,14 @@ def search():
         )
 
     return redirect(url_for("home"))
+
+
+    # Admin dashboard
+@app.route("/admin_dashboard")
+def admin_dashboard():
+    events = Event.query.order_by(Event.date.desc()).all()
+    rsvp_counts = {event.id: RSVP.query.filter_by(event_id=event.id).count() for event in events}
+    total_events = len(events)
+    total_rsvps = sum(rsvp_counts.values())
+
+    return render_template("admin_dashboard.html", events=events, rsvp_counts=rsvp_counts, total_events=total_events, total_rsvps=total_rsvps)
