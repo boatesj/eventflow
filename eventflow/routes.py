@@ -260,6 +260,47 @@ def search():
     return redirect(url_for("home"))
 
 
+    # Create a new RSVP
+@app.route("/rsvp/<int:event_id>", methods=["POST"])
+def rsvp(event_id):
+    # Retrieve the event using the provided event_id
+    event = Event.query.get_or_404(event_id)
+
+    # Get form data
+    name = request.form.get("name")
+    email = request.form.get("email")
+
+    # Check if the required fields are filled in
+    if not name or not email:
+        flash("Name and Email are required fields.", "error")
+        return redirect(url_for('event_detail', event_id=event.id))
+
+    # Check if attending checkbox is ticked
+    attending = request.form.get("attending") is not None
+
+    # Check if an RSVP for this event and email already exists
+    rsvp_entry = RSVP.query.filter_by(event_id=event.id, email=email).first()
+
+    if rsvp_entry:
+        rsvp_entry.attending = attending
+        rsvp_entry.name = name  # Update name if it changed
+    else:
+        # Create a new RSVP entry if one doesn't exist
+        rsvp_entry = RSVP(event_id=event.id, name=name, email=email, attending=attending)
+        db.session.add(rsvp_entry)
+
+    try:
+        # Commit the changes to the database
+        db.session.commit()
+        flash('RSVP submitted successfully!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f"An error occurred while saving your RSVP: {str(e)}", 'error')
+
+    return redirect(url_for('event_detail', event_id=event.id))
+
+
+
     # Admin dashboard
 @app.route("/admin_dashboard")
 def admin_dashboard():
