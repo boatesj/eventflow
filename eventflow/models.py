@@ -1,4 +1,4 @@
-from eventify import db  # Import from the correct app module
+from eventflow import db  # Import from the correct app module
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +18,7 @@ class Event(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
     image_file = db.Column(db.String(120), nullable=True)
 
-     # Keep the rsvps relationship here
+    # Keep the rsvps relationship here
     rsvps = db.relationship('RSVP', backref='event')  # This backref should stay
 
     def __repr__(self):
