@@ -1,4 +1,4 @@
-/* Base body styles */
+/* Body and Main Layout */
 body {
     display: flex;
     min-height: 100vh;
@@ -12,7 +12,7 @@ main {
     flex: 1 0 auto;
 }
 
-/* Default link styling */
+/* Link Styles */
 a {
     color: #827717;
     text-decoration: none;
@@ -22,57 +22,13 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Navbar links */
+/* Navbar Styles */
 nav ul li a {
     color: white;
     font-weight: bold;
 }
 
-/* Mobile navigation */
-.sidenav a {
-    color: #827717;
-}
-
-/* Navbar logo */
-nav .brand-logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    padding-left: 20px;
-}
-
-/* Footer styling */
-footer {
-    background-color: #827717;
-    padding: 10px 0;
-    color: white;
-    text-align: center;
-}
-
-/* Main content container */
-main.container {
-    margin-top: 20px;
-}
-
-/* Event list items */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-ul li a {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-/* Form input fields */
+/* Form Input Fields */
 input[type="text"], input[type="datetime-local"], textarea {
     width: 100%;
     padding: 10px;
@@ -81,7 +37,7 @@ input[type="text"], input[type="datetime-local"], textarea {
     border: 1px solid #ccc;
 }
 
-/* Form buttons */
+/* Buttons */
 button {
     background-color: #827717;
     color: white;
@@ -93,55 +49,4 @@ button {
 
 button:hover {
     background-color: #9e9d24;
-}
-
-
-nav ul li a:hover {
-    background-color: #ff4081;  
-    color: white;  /* Keep text white on hover */
-}
-
-.nav-link-custom {
-    background-color: #827717; 
-    padding: 10px 15px;
-    border-radius: 4px; /* Rounded corners for a polished look */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-
-.nav-link-custom:hover {
-    background-color: #afb42b; /* Darker teal for hover effect */
-}
-
-.input-field {
-    margin-bottom: 30px; /* Adjust spacing between input fields */
-}
-
-.input-field label {
-    margin-bottom: 5px; /* Space between label and input */
-}
-
-.center-align {
-    margin-top: 20px; /* Space for center-align elements */
-}
-
-/* Additional styles for the featured checkbox */
-.input-field input[type="checkbox"] {
-    margin-top: 20px; /* Space between checkbox and label */
-}
-
-.sparks {
-    margin-bottom: 20px;
-}
-
-/* Style the search input field */
-input[name="search_term"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button[type="submit"]:hover {
-    background-color: #2e7d32;
 }
