@@ -21,3 +21,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
 
 </head>
+<body>
+
+    <!-- Navbar Section -->
+<header>
+    <nav class="lime darken-3">
+        <div class="nav-wrapper">
+            <a href="{{ url_for('home') }}" class="brand-logo white-text">EventFlow</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('home') }}" class="white-text nav-link-custom">Home</a></li>
+                <li><a href="{{ url_for('add_event') }}" class="white-text nav-link-custom">New Event</a></li>
+                <li><a href="{{ url_for('add_category') }}" class="white-text nav-link-custom">New Category</a></li>
+                <li><a href="{{ url_for('admin_dashboard') }}" class="white-text nav-link-custom">Admin Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+</body>
