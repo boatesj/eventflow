@@ -1,5 +1,5 @@
 import os
-from eventify import app  # Assuming app is initialized in __init__.py
+from eventflow import app  # Update to eventflow to match the new app name
 
 def str_to_bool(value):
     """ Convert string values to boolean """
