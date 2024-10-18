@@ -163,3 +163,78 @@ def add_event():
             return redirect(url_for('add_event'))
 
     return render_template("add_event.html", categories=categories)
+
+    # Edit an existing event
+@app.route("/edit_event/<int:event_id>", methods=["GET", "POST"])
+def edit_event(event_id):
+    event = Event.query.get_or_404(event_id)
+    categories = Category.query.all()  # Fetch categories for the dropdown
+
+    if request.method == "POST":
+        try:
+            # Extract date and time separately from the form
+            event_date_raw = request.form.get("date")  # Expecting 'dd-mm-yyyy'
+            event_time_raw = request.form.get("time")  # Expecting 'HH:MM'
+
+            # Split and handle date and time separately
+            day, month, year = map(int, event_date_raw.split('-'))
+            hour, minute = map(int, event_time_raw.split(':'))
+
+            # Create a datetime object and update event
+            event.date = datetime(year, month, day, hour, minute)
+
+            # Update other event details from the form
+            event.title = request.form.get("title")
+            event.description = request.form.get("description")
+            event.location = request.form.get("location")
+            event.category_id = request.form.get("category_id")
+            event.featured = request.form.get("featured") == "1"  # Store as boolean
+
+            # Handle file upload (if a new image is uploaded)
+            file = request.files.get('image')
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_path = os.path.join(app.static_folder, 'images', filename)
+                os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                file.save(file_path)
+                event.image_file = filename  # Update the filename in the database
+
+            # Commit the changes to the database
+            db.session.commit()
+            flash('Event updated successfully!', 'success')
+            return redirect(url_for("home"))
+        
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating event: {str(e)}", 'error')
+            return redirect(url_for("edit_event", event_id=event_id))
+
+    # Format the date and time for the form
+    formatted_date = event.date.strftime('%d-%m-%Y')
+    formatted_time = event.date.strftime('%H:%M')
+    return render_template("edit_event.html", event=event, categories=categories, formatted_date=formatted_date, formatted_time=formatted_time)
+
+
+
+
+# Delete an event
+@app.route("/delete_event/<int:event_id>")
+def delete_event(event_id):
+    event = Event.query.get_or_404(event_id)
+
+    # Manually delete associated RSVPs
+    RSVP.query.filter_by(event_id=event_id).delete()
+
+    # Delete the event
+    db.session.delete(event)
+    db.session.commit()
+
+
+    # Fetch updated event list and RSVP counts for the admin dashboard
+    events = Event.query.order_by(Event.date.desc()).all()
+    rsvp_counts = {event.id: RSVP.query.filter_by(event_id=event.id).count() for event in events}
+    total_events = len(events)
+    total_rsvps = sum(rsvp_counts.values())
+    
+    # Re-render the admin dashboard with updated data
+    return render_template("admin_dashboard.html", events=events, rsvp_counts=rsvp_counts, total_events=total_events, total_rsvps=total_rsvps)
