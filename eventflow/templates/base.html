@@ -54,4 +54,45 @@
         </li>
     </ul>
 </header>
+
+<!-- Flash Messages -->
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-messages">
+                {% for category, message in messages %}
+                    <div class="card-panel {{ 'green lighten-4 green-text' if category == 'success' else 'red lighten-4 red-text' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Main Content Section -->
+<main class="container">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Footer Section -->
+<footer class="page-footer lime darken-4">
+    <div class="footer-copyright">
+        <div class="container">
+            Designed by: Jake Boateng
+            <a class="white-text right" href="https://codeinstitute.net" target="_blank">&copy; Code Institute Milestone 3 Project</a>
+        </div>
+    </div>
+</footer>
+
+<!-- JS Scripts -->
+<!-- Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- Custom Script for Calendar Initialization -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
+</html>
+
