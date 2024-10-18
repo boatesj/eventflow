@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Event{% endblock %}
+
+{% block content %}
+    <h3 class="center-align lime-text text-darken-4">Add New Event</h3>
+
+    <form method="POST" action="{{ url_for('add_event') }}" class="row" enctype="multipart/form-data">
+
+        <!-- Event Title -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-pencil-alt prefix lime-text text-darken-4"></i>
+                <input name="title" id="title" type="text" class="validate" value="{{ request.form.title }}" required>
+                <label for="title">Event Title</label>
+            </div>
+        </div>
+
+        <!-- Event Description -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-align-left prefix lime-text text-darken-4"></i>
+                <textarea name="description" id="description" minlength="5" maxlength="200" class="materialize-textarea validate" required>{{ request.form.description }}</textarea>
+                <label for="description">Event Description</label>
+            </div>
+        </div>
+
+        <!-- Event Date -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-calendar-alt prefix lime-text text-darken-4"></i>
+                <input id="date" name="date" type="text" class="datepicker validate" required>
+                <label for="date" class="active">Event Date</label>
+            </div>
+        </div>
+
+
+        <!-- Event Time -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-clock prefix lime-text text-darken-4"></i>
+                <input id="time" name="time" type="text" class="timepicker validate" required>
+                <label for="time" class="active">Event Time</label>
+            </div>
+        </div>
