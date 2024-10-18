@@ -43,3 +43,51 @@
                 <label for="time" class="active">Event Time</label>
             </div>
         </div>
+
+         <!-- Event Location -->
+         <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-map-marker-alt prefix lime-text text-darken-4"></i>
+                <input type="text" name="location" id="location" value="{{ request.form.location }}" required>
+                <label for="location">Event Location</label>
+            </div>
+        </div>
+
+        <!-- Event Category Dropdown -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa fa-tags prefix lime-text text-darken-4"></i> 
+                <select name="category_id" required>
+                    <option value="" disabled selected>Choose Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if request.form.category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="category_id">Event Category</label>
+            </div>
+        </div>
+
+        <!-- Featured Checkbox -->
+        <div class="input-field col s12">
+            <label>
+                <input type="checkbox" name="featured" value="1" {% if request.form.featured %}checked{% endif %} />
+                <span>Mark as Featured</span>
+            </label>
+        </div>
+
+        <!-- Event Image Upload -->
+        <div class="input-field col s12">
+            <label for="image" style="margin-top: 10px;">Upload Event Image (optional)</label>
+            <input type="file" name="image" id="image" accept="image/*">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <button type="submit" class="btn-large lime darken-4">
+                    Add Event <i class="fas fa-plus-square right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
