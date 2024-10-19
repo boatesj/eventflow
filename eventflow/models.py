@@ -3,7 +3,7 @@ from eventflow import db  # Import from the correct app module
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    events = db.relationship('Event', backref='category', lazy=True)
+    events = db.relationship("Event", backref="category", cascade="all, delete", lazy=True)
 
 # Schema for the Event model
 class Event(db.Model):
@@ -15,7 +15,7 @@ class Event(db.Model):
     location = db.Column(db.String(200), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now(), nullable=False)
     featured = db.Column(db.Boolean, default=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id", ondelete="CASCADE"), nullable=False)
     image_file = db.Column(db.String(120), nullable=True)
 
     # Keep the rsvps relationship here
@@ -27,7 +27,7 @@ class Event(db.Model):
 # Schema for the RSVP model
 class RSVP(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id', ondelete='CASCADE'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id", ondelete="CASCADE"), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     attending = db.Column(db.Boolean, default=False)
