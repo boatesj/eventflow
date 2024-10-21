@@ -11,8 +11,8 @@ if os.path.exists("env.py"):
 # Initialize the Flask app
 app = Flask(__name__)
 
-# Set the secret key from environment variables
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+# Set the secret key from environment variables or use a default value
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "any_secret_key")  # Add a default key
 
 # Database configuration: handle development vs production and PostgreSQL URI replacement
 if os.environ.get("DEVELOPMENT") == "True":
@@ -31,7 +31,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the database and migration modules
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 
 # Print the database URI to verify
 print("Using database:", app.config["SQLALCHEMY_DATABASE_URI"])

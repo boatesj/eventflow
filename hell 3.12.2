@@ -1,0 +1,22 @@
+                                         Table "public.event"
+   Column    |            Type             | Collation | Nullable |              Default              
+-------------+-----------------------------+-----------+----------+-----------------------------------
+ id          | integer                     |           | not null | nextval('event_id_seq'::regclass)
+ title       | character varying(100)      |           | not null | 
+ description | text                        |           | not null | 
+ date        | timestamp without time zone |           | not null | 
+ time        | character varying(8)        |           | not null | 
+ location    | character varying(200)      |           | not null | 
+ created_at  | timestamp without time zone |           | not null | 
+ featured    | boolean                     |           |          | 
+ category_id | integer                     |           |          | 
+ image_file  | character varying(120)      |           |          | 
+Indexes:
+    "event_pkey" PRIMARY KEY, btree (id)
+    "event_title_key" UNIQUE CONSTRAINT, btree (title)
+Foreign-key constraints:
+    "event_category_id_fkey" FOREIGN KEY (category_id) REFERENCES category(id)
+Referenced by:
+    TABLE ""RSVP"" CONSTRAINT "RSVP_event_id_fkey" FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE CASCADE
+    TABLE "rsvp" CONSTRAINT "rsvp_event_id_fkey" FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE CASCADE
+
