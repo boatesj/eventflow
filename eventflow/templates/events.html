@@ -15,12 +15,11 @@
             <select name="category_id">
                 <option value="">All Categories</option> <!-- This option allows users to reset the selection -->
                 {% for category in categories %}
-                    <option value="{{ category.id }}" {% if selected_category == category.id %} selected {% endif %}>{{ category.name }}</option>
+                    <option value="{{ category.id }}" {% if selected_category == category.id %} selected {% endif %}>{{ category.category_name }}</option>
                 {% endfor %}
             </select>
             <label>Category</label>
         </div>
-
 
         <!-- Date Range Fields -->
         <div class="input-field col s6">
@@ -65,8 +64,8 @@
         {% if featured_events %}
             {% for event in featured_events %}
                 <li class="collection-item">
-                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.title }}</a>
-                    <p>{{ event.date|dateformat }} at {{ event.location }}</p>
+                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.event_title }}</a>
+                    <p>{{ event.event_date|dateformat }} at {{ event.location }} | {{ event.event_time.strftime('%H:%M') }}</p>
                 </li>
             {% endfor %}
         {% else %}
@@ -81,8 +80,8 @@
             {% for event in upcoming_events %}
                 <li class="collection-item">
                     <!-- Link to event detail page -->
-                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.title }}</a>
-                    <p>{{ event.date|dateformat }} at {{ event.location }}</p>
+                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.event_title }}</a>
+                    <p>{{ event.event_date|dateformat }} at {{ event.location }} | {{ event.event_time.strftime('%H:%M') }}</p>
                     <!-- Edit and Delete buttons -->
                     <div class="right-align">
                         <a href="{{ url_for('edit_event', event_id=event.id) }}" class="btn-small lime darken-4">Edit</a>
@@ -102,8 +101,8 @@
             {% for event in past_events %}
                 <li class="collection-item">
                     <!-- Link to event detail page -->
-                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.title }}</a>
-                    <p>{{ event.date|dateformat }} at {{ event.location }}</p>
+                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.event_title }}</a>
+                    <p>{{ event.event_date|dateformat }} at {{ event.location }} | {{ event.event_time.strftime('%H:%M') }}</p>
                 </li>
             {% endfor %}
         {% else %}
@@ -111,4 +110,3 @@
         {% endif %}
     </ul>
 {% endblock %}
-

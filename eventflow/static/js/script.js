@@ -11,12 +11,27 @@ document.addEventListener('DOMContentLoaded', function() {
     var dateElems = document.querySelectorAll('.datepicker');
     if (dateElems.length > 0) {
         console.log('Initializing datepicker...');
-        M.Datepicker.init(dateElems, {
-            format: 'dd-mm-yyyy',  // Adjusted format to match the desired format (dd-mm-yyyy)
-            autoClose: true,
-            onClose: function() {
-                console.log("Selected date:", dateElems[0].value);
+
+        dateElems.forEach(function(elem) {
+            let defaultDate = null;
+
+            // If the field has a value, convert it to a date object
+            if (elem.value) {
+                let parts = elem.value.split('-');
+                if (parts.length === 3) {
+                    defaultDate = new Date(parts[2], parts[1] - 1, parts[0]);  // Create a date from dd-mm-yyyy
+                }
             }
+
+            M.Datepicker.init(elem, {
+                format: 'dd-mm-yyyy',  // Adjusted format to match the desired format (dd-mm-yyyy)
+                autoClose: true,
+                defaultDate: defaultDate,  // Use the pre-populated value if present
+                setDefaultDate: !!defaultDate,  // Only set default if the date exists
+                onClose: function() {
+                    console.log("Selected date:", elem.value);
+                }
+            });
         });
     }
 
@@ -24,13 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var timeElems = document.querySelectorAll('.timepicker');
     if (timeElems.length > 0) {
         console.log('Initializing timepicker...');
-        M.Timepicker.init(timeElems, {
-            twelveHour: false,
-            defaultTime: 'now',
-            showClearBtn: true,
-            onCloseEnd: function() {
-                console.log("Selected time:", timeElems[0].value);
-            }
+
+        timeElems.forEach(function(elem) {
+            M.Timepicker.init(elem, {
+                twelveHour: false,
+                defaultTime: elem.value || 'now',  // Use pre-populated time if available
+                showClearBtn: true,
+                onCloseEnd: function() {
+                    console.log("Selected time:", elem.value);
+                }
+            });
         });
     }
 

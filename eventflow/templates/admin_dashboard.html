@@ -27,8 +27,8 @@
         <tbody>
             {% for event in events %}
             <tr>
-                <td>{{ event.title }}</td>
-                <td>{{ event.date.strftime('%d-%m-%Y') }}</td>
+                <td>{{ event.event_title }}</td> <!-- Updated to event_title -->
+                <td>{{ event.event_date.strftime('%d-%m-%Y') }}</td> <!-- Updated to event_date -->
                 <td>{{ event.location }}</td>
                 <td>{{ rsvp_counts[event.id] }}</td>
                 <td>

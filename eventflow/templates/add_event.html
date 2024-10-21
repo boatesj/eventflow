@@ -11,8 +11,8 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="fa fa-pencil-alt prefix lime-text text-darken-4"></i>
-                <input name="title" id="title" type="text" class="validate" value="{{ request.form.title }}" required>
-                <label for="title">Event Title</label>
+                <input name="event_title" id="event_title" type="text" class="validate" value="{{ request.form.event_title }}" required>
+                <label for="event_title">Event Title</label>
             </div>
         </div>
 
@@ -33,7 +33,6 @@
                 <label for="date" class="active">Event Date</label>
             </div>
         </div>
-
 
         <!-- Event Time -->
         <div class="row">
@@ -60,7 +59,7 @@
                 <select name="category_id" required>
                     <option value="" disabled selected>Choose Category</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}" {% if request.form.category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                        <option value="{{ category.id }}" {% if request.form.category_id == category.id %}selected{% endif %}>{{ category.category_name }}</option>
                     {% endfor %}
                 </select>
                 <label for="category_id">Event Category</label>
@@ -76,7 +75,7 @@
         </div>
 
         <!-- Event Image Upload -->
-        <div class="input-field col s12">
+        <div class="input-field col s12" style="margin-top: 30px;">
             <label for="image" style="margin-top: 10px;">Upload Event Image (optional)</label>
             <input type="file" name="image" id="image" accept="image/*">
         </div>
