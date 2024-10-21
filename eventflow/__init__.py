@@ -32,6 +32,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+
+# Print the database URI to verify
+print("Using database:", app.config["SQLALCHEMY_DATABASE_URI"])
+
 # Custom filter to format datetime to 'dd-mm-yyyy' (U.K. format)
 @app.template_filter('dateformat')
 def dateformat(value, format='%d-%m-%Y'):
