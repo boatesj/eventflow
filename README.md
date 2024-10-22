@@ -351,7 +351,9 @@ The clean and recognizable icons provided by **Font Awesome** help users quickly
 Wireframes were created to outline the structure and layout of the **EventFlow** website, ensuring a consistent and user-friendly design across devices.
 
 - **Desktop Wireframe**: ![View Desktop Wireframe](/eventflow/static/wireframes/eventflowmax-app.png)
+<br><br>
 - **Tablet Wireframe**: ![View Tablet Wireframe](/eventflow/static/wireframes/eventflowApp-tablet.png)
+<br><br>
 - **Mobile Wireframe**: ![View Mobile Wireframe](/eventflow/static/wireframes/EventflowApp-mob.png)
 
 
