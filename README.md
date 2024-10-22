@@ -1,131 +1,201 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# EventFlow
 
-Welcome Jake Boateng,
+**EventFlow** is a dynamic and fully-functional web application designed to streamline event management. It allows users to easily create, view, and RSVP to events, while providing admin users with tools to manage categories and event details. Built with Flask and PostgreSQL, the application focuses on delivering an intuitive user experience while adhering to best practices in web development.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Rationale
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+### Overview of the Project
 
-## Gitpod Reminders
+The **EventFlow** project aims to address the need for an efficient, user-friendly platform to manage events. This project provides a comprehensive event management system that is easy to use for both end-users and administrators. The application supports full CRUD (Create, Read, Update, Delete) operations and allows users to interact with events in a meaningful way, whether it’s RSVPing or browsing through categorized event listings.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+**EventFlow** was developed using modern web technologies such as Flask, SQLAlchemy, PostgreSQL, and JavaScript to ensure the application is responsive, accessible, and secure. The design focuses on ease of navigation and user interaction, making it suitable for a wide variety of event types, from social gatherings to professional conferences.
 
-`python3 -m http.server`
+### Inspiration and Purpose
 
-A blue button should appear to click: _Make Public_,
+The inspiration behind **EventFlow** stemmed from the growing need for digital solutions to manage both large and small-scale events. Whether it's community gatherings, business events, or personal functions, users will have a centralised platform to organize and manage event details, categories, and RSVPs effectively. By addressing these needs, **EventFlow** enhances user experience while also simplifying the administrative process.
 
-Another blue button should appear to click: _Open Browser_.
+### Project Background
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+Event management tools often lack specific features that cater to both event organizers and participants. While many solutions exist, they are often either too complex or too limited for everyday users. **EventFlow** bridges that gap by offering an accessible yet feature-rich system, allowing both organizers and attendees to interact seamlessly.
 
-A blue button should appear to click: _Make Public_,
+During development, several challenges were identified, including setting up seamless event category management, properly displaying RSVPs, and ensuring the interface was responsive across multiple devices. Overcoming these obstacles helped shape a robust, easy-to-navigate platform.
 
-Another blue button should appear to click: _Open Browser_.
+### Scope and Limitations of the Project
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+#### Scope
 
-To log into the Heroku toolbelt CLI:
+The scope of the **EventFlow** project includes:
+- Creation and management of events by admins.
+- Categorization of events for easier navigation by users.
+- RSVP system for users to indicate attendance.
+- Display of event details, including date, time, description, category and images.
+- Admin dashboard for managing events and categories.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+#### Limitations
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+Known limitations of **EventFlow**:
+- **No user authentication**: Users can interact with events (RSVP, view details) but cannot manage their accounts or receive personalized event suggestions.
+- **Event image handling**: While images can be uploaded and managed, there are limitations in editing or resizing images through the interface.
+- **Real-time notifications**: The current version of **EventFlow** does not send email notifications but only real-time on-page confirmation updates to users upon RSVPs.
 
-### Connecting your Mongo database
+## Strategic Solution
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
+**EventFlow** offers a strategic solution to the event management needs of small to medium-sized organisations. Key features include:
 
-------
+- **Event Creation and Editing**: Admin users can create and manage events through a simple form interface, specifying the event title, date, time, description, and category.
+- **Categorised Event Listings**: Users can filter events by categories such as "Workshops," "Conferences," or "Social Gatherings."
+- **RSVP System**: Participants can RSVP to events and track their attendance.
+- **Admin Dashboard**: Admins can oversee event management, including editing and deleting events, through an intuitive dashboard.
+- **Flash Messages**: Action confirmation messages provide instant feedback for users and admins (e.g., "Event created successfully").
 
-## Release History
+## Key Benefits
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+**EventFlow** offers several advantages:
+- **Intuitive User Interface**: The platform provides a clean and intuitive interface for managing events and RSVPs.
+- **Admin Dashboard**: Admins can manage all aspects of event creation, including category assignment, event editing, and deletion.
+- **Responsive Design**: The app is fully responsive, ensuring it works across desktop, tablet, and mobile devices.
+- **Search Functionality**: Users can easily search for events by title or description, streamlining event discovery.
 
-**June 18, 2024,** Add Mongo back into template
+## Features
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+- **Full CRUD Operations**: Event creation, reading, updating, and deleting is fully supported.
+- **Event Categorization**: Admins can add new event categories, which are displayed to users when they filter events.
+- **RSVP Functionality**: Users can RSVP to events and update their attendance.
+- **Flash Messages**: Confirmation messages are displayed for actions like adding or deleting events.
+- **Admin Dashboard**: Admin users can manage categories and events from a dedicated interface.
 
-**May 28 2024:** Fix Mongo and Links installs
+## Technologies Used
 
-**April 26 2024:** Update node version to 16
+- **HTML5**: For structuring content and building the front end.
+- **CSS3**: Styling for a responsive and visually appealing design.
+- **JavaScript (jQuery)**: Added interactivity for features like RSVP and form handling.
+- **Flask (Python)**: Web framework to handle backend functionality.
+- **PostgreSQL**: Relational database to manage event and RSVP data.
+- **SQLAlchemy**: Object-relational mapping (ORM) for database queries.
+- **Heroku**: Cloud platform for deployment.
+- **Materializecss**: Framework for responsive design.
 
-**September 20 2023:** Update Python version to 3.9.17.
+## Installation
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+### Local Installation
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+To run **EventFlow** locally:
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+1. Clone this repository:
+ 
+   git clone https://github.com/yourusername/eventflowmax.git
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+2. Navigate to the directory:
+   
+   cd eventflow
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+3. Set up a virtual environment:
+  
+     python3 -m venv venv
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+4. Activate the virtual environment:
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- **For Mac/Linux**:
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+     source venv/bin/activate
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- **For Windows**:
+  
+     venv\Scripts\activate
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+5. Install required packages:
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+     pip install -r requirements.txt
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+6. Set up environment variables in an .env or env.py file:
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+     SECRET_KEY=your_secret_key
+     SQLALCHEMY_DATABASE_URI=postgresql:///eventflow
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+7. Set up the database:
 
-------
+     flask db upgrade
 
-## FAQ about the uptime script
+8. Run the application:
 
-**Why have you added this script?**
+     flask run
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
 
-**How will this affect me?**
+# Database Structure
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+The database for EventFlow consists of three main models:
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+## 1. Category Model
+- **Fields:** 
+  - `id`: Primary key
+  - `category_name`: Unique category name (e.g., Conference, Workshop)
+- **Description:** Handles different event categories, allowing events to be organized into various groups.
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+## 2. Event Model
+- **Fields:** 
+  - `id`: Primary key
+  - `event_title`: Title of the event
+  - `event_description`: Detailed description of the event
+  - `event_date`: Date of the event
+  - `event_time`: Time of the event
+  - `category_id`: Foreign key linking to the Category model
+- **Description:** Stores the event's details like title, description, date, and time, along with its category association.
 
-**So….?**
+## 3. RSVP Model
+- **Fields:** 
+  - `id`: Primary key
+  - `event_id`: Foreign key linking to the Event model
+  - `user_email`: Email of the user who RSVPs
+- **Description:** Tracks RSVPs for events by storing the user’s email and associating it with the event they registered for.
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
 
-**Can I opt out?**
+# Deployment
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+## Deployment to Heroku
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+Follow these steps to deploy EventFlow to Heroku:
 
-**Anything more?**
+### 1. Install the Heroku CLI
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+Download and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) on your local machine.
 
----
+### 2. Create a New Heroku App
 
-Happy coding!
+Create a new Heroku app by running the following command in your terminal:
+
+```bash
+heroku create eventflow-app
+
+### Set Environment Variables
+
+Set the necessary environment variables for your Heroku app. Replace `your_secret_key` with your actual secret key and `<db_url>` with your PostgreSQL database URL:
+
+```bash
+heroku config:set SECRET_KEY=your_secret_key
+heroku config:set SQLALCHEMY_DATABASE_URI=postgresql://<db_url>
+
+### Push Your Code to Heroku
+
+To deploy your local code to Heroku's remote repository, use the following command:
+
+```bash
+git push heroku main
+
+### Run Database Migrations on Heroku
+
+
+Once the code is deployed, run the following command to apply database migrations on Heroku:
+
+```bash
+heroku run flask db upgrade
+
+
+
+
+
+
+
+
+
+
+
