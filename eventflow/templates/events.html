@@ -31,7 +31,21 @@
             <label>End Date</label>
         </div>
 
-       
+        <!-- Location Field -->
+        <div class="input-field col s12">
+            <input type="text" name="location" placeholder="Enter location" value="{{ location or '' }}">
+        </div>
+
+        <!-- Sorting Dropdown -->
+        <div class="input-field col s12">
+            <select name="sort_by">
+                <option value="" disabled selected>Sort By</option>
+                <option value="date" {% if sort_by == 'date' %} selected {% endif %}>Date</option>
+                <option value="popularity" {% if sort_by == 'popularity' %} selected {% endif %}>Popularity</option>
+            </select>
+            <label>Sort By</label>
+        </div>
+
         <!-- Submit Button -->
         <div class="col s12">
             <button type="submit" class="btn-large lime darken-4">Search</button>
