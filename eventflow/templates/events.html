@@ -93,4 +93,21 @@
              <li class="collection-item">No upcoming events.</li>
          {% endif %}
      </ul>
+
+     <!-- Past Events Section -->
+    <h3 class="center-align lime-text text-darken-4">Past Events</h3>
+    <ul class="collection">
+        {% if past_events %}
+            {% for event in past_events %}
+                <li class="collection-item">
+                    <!-- Link to event detail page -->
+                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.event_title }}</a>
+                    <p>{{ event.event_date|dateformat }} at {{ event.location }} | {{ event.event_time.strftime('%H:%M') }}</p>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li class="collection-item">No past events.</li>
+        {% endif %}
+    </ul>
+{% endblock %}
  
