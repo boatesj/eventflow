@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+    <!-- Search form for events -->
+    <h3 class="center-align lime-text text-darken-4">Search Events</h3>
+    <form method="POST" action="{{ url_for('search') }}" class="row">
+        <div class="input-field col s12">
+            <input type="text" name="search_term" placeholder="Search events by title or description" value="{{ search_term or '' }}">
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="input-field col s12">
+            <select name="category_id">
+                <option value="">All Categories</option> <!-- This option allows users to reset the selection -->
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if selected_category == category.id %} selected {% endif %}>{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+            <label>Category</label>
+        </div>
+
+       
+        <!-- Submit Button -->
+        <div class="col s12">
+            <button type="submit" class="btn-large lime darken-4">Search</button>
+        </div>
+    </form>
+
+    <!-- Sorting options -->
