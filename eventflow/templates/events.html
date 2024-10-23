@@ -7,7 +7,7 @@
     <h3 class="center-align lime-text text-darken-4">Search Events</h3>
     <form method="POST" action="{{ url_for('search') }}" class="row">
         <div class="input-field col s12">
-            <input type="text" name="search_term" placeholder="Search events by title or description" value="{{ search_term or '' }}"/>
+            <input type="text" name="search_term" placeholder="Search events by title or description" value="{{ search_term or '' }}">
         </div>
 
         <!-- Category Dropdown -->

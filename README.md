@@ -356,6 +356,241 @@ Wireframes were created to outline the structure and layout of the **EventFlow**
 <br><br>
 - **Mobile Wireframe**: ![View Mobile Wireframe](/eventflow/static/wireframes/EventflowApp-mob.png)
 
+## Features
+
+### 1. Adding a New Category
+- Admins have the ability to add new event categories through a dedicated form. This feature allows the platform to accommodate various event types, ensuring that events are well-organized and easy to filter.
+- After submitting the form, a flash confirmation message is displayed to confirm the successful creation of the category.
+- The category list is immediately updated, making the new category available for event assignment.
+
+### 2. Adding a New Event
+Admins can create new events by filling out a detailed form. The event creation form includes the following fields:
+- **Event Title**: The name of the event.
+- **Event Description**: A detailed description of what the event is about.
+- **Event Date**: The scheduled date of the event.
+- **Event Time**: The specific time the event will take place.
+- **Location**: The venue or address of the event.
+- **Category Selection**: A dropdown menu that allows the admin to choose a category for the event.
+- **Mark as Featured**: An option to highlight the event as featured, making it more prominent on the homepage.
+- **Upload Event Image**: Allows admins to upload an image related to the event to enhance its presentation.
+
+Once the event details are submitted, a flash confirmation message confirms that the event has been successfully added. The new event is immediately visible in the list of events and is displayed in its respective category.
+
+### 3. Home Page
+The homepage provides users with an overview of all available events, along with tools to help them find specific events:
+- **Search Event**: Users can search for events using several filters:
+  - **Category**: Filter events based on their assigned category.
+  - **Start and End Date**: Select a range of dates to filter events happening within that period.
+  - **Location**: Search events based on their location.
+  - **Sort by Date or Popularity**: Users can sort events either by the date of occurrence or by their popularity (based on RSVPs).
+
+- **Featured Events Section**: Highlights events that have been marked as "featured" by admins. These events are more prominently displayed to attract user attention.
+
+- **Upcoming Events Section**: Displays events that are scheduled to happen in the near future, sorted by date.
+
+- **Past Events**: Lists events that have already occurred, providing users with access to information about previous events.
+
+### 4. Event Detail Page
+Each event has a dedicated detail page that provides users with comprehensive information:
+- **Event Description**: A full description of the event, including the date, time, and location.
+- **RSVP Feature**: Users can confirm their attendance by clicking the RSVP button. Upon submitting an RSVP, the user receives a flash confirmation message to confirm their RSVP.
+- **Edit Event**: For admins, the event detail page provides an option to edit the event’s details. Admins can update any of the event fields and re-upload images if necessary.
+- **Delete Event**: Admins can also delete events directly from the detail page. A confirmation message ensures that events are only deleted with admin approval.
+
+### 5. Admin Dashboard
+The admin dashboard provides a comprehensive overview of the event management system:
+- **Total Events**: Displays the total number of events currently in the system, giving admins a quick snapshot of how many events are active.
+- **Total RSVPs**: Shows the total number of RSVPs across all events, allowing admins to gauge event popularity and attendee engagement.
+
+The dashboard is designed to provide admins with quick access to important metrics, helping them manage the event system effectively.
+
+## Website Structure and Content
+
+### 1. Website Structure
+
+**EventFlow** includes four main pages, along with dynamically generated event detail pages, to provide both users and admins with comprehensive event management tools:
+
+- **Home Page**: 
+  - The home page offers an overview of all events, with a search feature that allows users to filter events by category, date range, location, and popularity. 
+  - It also features sections for featured events, upcoming events, and past events, giving users quick access to relevant event information.
+
+- **New Event Page**: 
+  - Admins can create new events through this page by filling out details such as event title, description, date, time, location, and category, with the option to upload an event image and mark the event as featured.
+  - Flash confirmation messages confirm when an event has been successfully created.
+
+- **New Category Page**: 
+  - This page allows admins to create new event categories to help organize events. The form is straightforward and includes a flash confirmation message to notify admins when a new category has been added successfully.
+
+- **Admin Dashboard**: 
+  - The admin dashboard provides a quick summary of the total number of events and RSVPs in the system. 
+  - It also offers links to manage existing events and categories, giving admins full control over the platform's content.
+
+- **Dynamically Created Event Detail Pages**: 
+  - Each event has its own dynamically generated detail page, displaying key information such as the event title, description, date, time, location, and category.
+  - Users can RSVP directly from this page, with a flash confirmation message appearing upon successful RSVP submission.
+
+### 2. Responsive Design
+
+The **EventFlow** website is fully responsive, ensuring that all pages, including dynamically created event detail pages, display correctly on a range of devices:
+
+- **MaterializeCSS** provides the foundation for the responsive design. The framework’s grid system and components adjust automatically based on screen size, ensuring optimal usability on desktops, tablets, and mobile devices.
+- **Custom CSS media queries** are used to fine-tune the responsiveness, ensuring that text, images, and interactive elements are appropriately scaled across all screen sizes.
+
+### 3. User Interaction
+
+**EventFlow** includes several interactive features to enhance user and admin experiences:
+
+- **Event Search and Filters**: 
+  - Users can filter events by category, date range, and location, and sort events by date or popularity. 
+  - Search results are updated dynamically, making it easy for users to find the events they are interested in.
+
+- **RSVP Functionality**: 
+  - On each dynamically created event detail page, users can RSVP to events with a single click. 
+  - A flash message confirms successful RSVPs, providing real-time feedback to users.
+
+- **Admin Functions**: 
+  - Admins can create, edit, and delete events and categories. 
+  - They also have access to a user-friendly dashboard that displays key metrics like the total number of events and RSVPs, streamlining event management.
+
+- **Form Interaction**: 
+  - All forms across the platform are easy to use, featuring input validation to ensure all required fields are completed before submission. 
+  - Flash confirmation messages notify users and admins of successful actions, such as adding an event or category.
+
+## Accessibility
+
+**EventFlow** was designed with accessibility in mind, following WCAG 2.1 guidelines to ensure the platform is usable by a wide range of users, including those with disabilities.
+
+### Key Accessibility Features
+
+- **Text Alternatives for Non-Text Content**: 
+  - The only images used on the platform are those uploaded by the admin to highlight events.
+  - Each of these images includes appropriate alt text, describing the event or the purpose of the image, ensuring that users relying on screen readers can understand the context of the image.
+
+- **Keyboard Accessibility**: 
+  - All interactive elements, such as navigation links, buttons, and forms, are fully accessible via keyboard.
+  - Users can navigate through the site and interact with all features, such as filtering events or submitting RSVPs, without the need for a mouse.
+
+- **Sufficient Contrast Ratios**: 
+  - The platform’s color scheme (using MaterializeCSS Lime Darken-4, Lime Darken-3, and Red Darken-4) was selected to ensure high contrast between text and background.
+  - This makes content easily readable for users with visual impairments or color blindness.
+
+### Additional Considerations
+
+- **Semantic HTML**: 
+  - The use of semantic HTML elements (e.g., header, nav, main, section, article) helps create a logical structure that is easy to navigate for screen readers and other assistive technologies.
+
+- **ARIA Labels**: 
+  - Where necessary, ARIA (Accessible Rich Internet Applications) labels are used to provide additional context to screen reader users, particularly for interactive elements like buttons and forms.
+
+By focusing on these accessibility features, **EventFlow** provides an inclusive experience for all users while ensuring compliance with modern web accessibility standards. This approach enhances usability and lays the groundwork for future improvements in accessibility.
+
+
+## Bugs Fixed in the EventFlow Website
+
+During the development and ongoing maintenance of **EventFlow**, several key issues were identified and resolved to enhance the platform’s performance, usability, and functionality. Below is a list of significant bugs that were fixed, along with the solutions implemented.
+
+### List of Bugs and Fixes
+
+#### 1. Category Dropdown Not Displaying
+- **Problem**: The category dropdown on the event creation page was not displaying available categories correctly.
+- **Fix**: The database query in the form handler was adjusted to ensure categories are fetched and displayed correctly in the dropdown.
+
+#### 2. Flash Confirmation Messages Not Displaying Properly
+- **Problem**: Flash messages confirming actions like adding a new event or category were not appearing in the intended location on the page.
+- **Fix**: The Flask route handlers were updated to ensure that flash messages are passed correctly to the templates, and the HTML structure was modified to display the messages in the appropriate section.
+
+#### 3. Image Upload Errors
+- **Problem**: Admins encountered issues when uploading images for events, particularly when the file size exceeded certain limits.
+- **Fix**: Image upload functionality was optimized by setting file size limits and ensuring proper error handling when large files were uploaded. Additionally, the upload path was checked to ensure images are correctly stored and linked to the events.
+
+#### 4. RSVP Button Not Functioning Correctly on Event Detail Page
+- **Problem**: The RSVP button was not submitting responses or reflecting user confirmation on the event detail page.
+- **Fix**: JavaScript and form validation scripts were reviewed and corrected to ensure that the RSVP functionality works as intended, with proper feedback provided via flash messages after successful submissions.
+
+#### 5. Admin Dashboard Not Updating Event and RSVP Counts
+- **Problem**: The admin dashboard was not showing real-time updates for the total number of events and RSVPs.
+- **Fix**: The database queries on the admin dashboard were updated to ensure accurate counts of total events and RSVPs, allowing for real-time tracking of metrics.
+
+## Testing
+
+### Automated Testing
+
+- **W3C Markup Validator**: All HTML pages in **EventFlow** were validated using the W3C Markup Validator to ensure there were no syntax errors and that the code followed web standards. Each page passed the validation process without issues.
+
+- **W3C CSS Validator**: The custom CSS and MaterializeCSS were validated using the W3C CSS Validator. The styling passed the validation with no errors, ensuring the website's layout is both responsive and compliant with CSS standards.
+
+- **JavaScript Linting**: Custom JavaScript, including code for event filtering, RSVP submissions, and dynamic form handling, was tested using linting tools to ensure it adhered to best practices and contained no errors.
+
+- **Python (PEP8) Validation**: The Python code used in **EventFlow**, including Flask routes, models, and other logic, was validated using PEP8 standards. Tools like flake8 and pylint were used to ensure that the code is clean, readable, and follows Python's style guidelines.
+
+- **Flask Testing Suite**: Python’s built-in unittest framework was used to create automated tests for Flask routes and back-end logic. The test cases ensured that routes for creating events, RSVPs, and category management were functioning correctly and that server responses were accurate.
+
+- **Lighthouse Testing**: Google Lighthouse was used to test the performance, accessibility, SEO, and best practices of the website. The results were excellent, showing good performance scores and accessibility compliance with web standards.
+
+### Manual Testing
+
+For detailed manual testing results, please refer to the `manual.md` file. Below is a summary of the main manual tests conducted:
+
+#### Testing User Stories from User Experience (UX) Section
+
+**First Time Visitor Goals**:
+- *Goal*: Easily understand the purpose of the site and learn more about events.
+  - *Result*: The homepage clearly presents **EventFlow**'s purpose, showcasing featured and upcoming events, and providing easy access to event information.
+  
+- *Goal*: Easily navigate the site.
+  - *Result*: Users can navigate the platform, filter events by category, date, and location, and view event details across devices.
+
+**Returning Visitor Goals**:
+- *Goal*: Find detailed information about upcoming events.
+  - *Result*: The event detail pages provide comprehensive information, including the event's title, description, location, and RSVP options.
+  
+- *Goal*: RSVP to events and confirm attendance.
+  - *Result*: The RSVP feature works smoothly, providing users with feedback through flash messages and updating the admin dashboard.
+
+**Admin User Goals**:
+- *Goal*: Create, edit, and delete events and categories.
+  - *Result*: Admin functionalities were tested extensively to ensure event creation, editing, deletion, and category management features work as expected. Flash confirmation messages provide feedback after each action.
+  
+- *Goal*: See an overview of total events and RSVPs.
+  - *Result*: The admin dashboard accurately displays the number of active events and RSVPs, providing a quick snapshot of platform activity.
+
+### Python Code Testing
+
+- **PEP8 Compliance**: All Python code (routes, models, and utilities) was checked against PEP8 standards using tools like flake8 to ensure that it follows best practices in Python development.
+  
+- **Unit Testing**: Unit tests were created for Flask routes and back-end logic using Python's unittest module. The tests ensured:
+  - Routes respond with the correct status codes and templates.
+  - Database interactions with models for event and RSVP management are correct.
+  - Flash messages display appropriately after actions like adding or editing events.
+  - Form validation works as expected with proper error handling for invalid inputs.
+
+- **Manual Code Review**: The Python codebase was manually reviewed to ensure that logic flow, error handling, and database interactions were correct, avoiding issues like duplicate entries or incorrect data retrieval.
+
+### Further Testing
+
+- **Cross-Browser Testing**: **EventFlow** was tested across multiple browsers (Chrome, Firefox, Safari, and Microsoft Edge) to ensure consistent behavior and compatibility.
+
+- **Responsive Testing**: The site was tested on various devices (desktops, tablets, smartphones) to verify that it remains responsive and user-friendly across all screen sizes.
+
+- **Form Validation**: All forms (event creation, category creation, RSVP submissions) were manually tested to ensure data was captured and processed correctly. Invalid submissions were handled with appropriate error messages.
+
+### Known Bugs
+
+There are no known bugs in the current version of **EventFlow**. All issues identified during testing were resolved prior to deployment.
+
+
+
+## Acknowledgements
+
+- **Font Awesome**: For providing the icons used throughout the site, enhancing visual clarity and improving the user experience.
+- **MaterializeCSS**: For offering a responsive framework that made the front-end development process faster and more efficient, ensuring consistent design across all devices.
+- **Flask Documentation**: For providing guidance and best practices throughout the development of the back-end functionality.
+- **Stack Overflow & Code Institute**: For the community-driven solutions and educational resources that assisted in solving development challenges.
+- **Heroku**: For hosting the **EventFlow** app and enabling the deployment of images stored in the local project directory.
+
+
+
+
 
 
 
