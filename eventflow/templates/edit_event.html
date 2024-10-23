@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block content %}
+    <h3 class="center-align lime-text text-darken-4">Edit Event</h3>
+
+    <form method="POST" action="{{ url_for('edit_event', event_id=event.id) }}" class="row" enctype="multipart/form-data">
+        <!-- Event Title -->
+        <div class="input-field col s12">
+            <input type="text" name="event_title" id="event_title" value="{{ event.event_title }}" required>
+            <label for="event_title" class="active">Event Title</label>
+        </div>
+
+        <!-- Event Description -->
+        <div class="input-field col s12">
+            <textarea name="description" id="description" class="materialize-textarea">{{ event.description }}</textarea>
+            <label for="description" class="active">Event Description</label>
+        </div>
+
+        <!-- Event Date -->
+        <div class="input-field col s12">
+            <input type="text" name="date" id="date" class="datepicker" value="{{ event.event_date.strftime('%d-%m-%Y') }}" required>
+            <label for="date" class="active">Event Date</label>
+        </div>
+
+        <!-- Event Time -->
+        <div class="input-field col s12">
+            <input type="text" name="time" id="time" class="timepicker" value="{{ event.event_time.strftime('%H:%M') }}" required>
+            <label for="time" class="active">Event Time</label>
+        </div>
+
+        
+        <!-- Submit Button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <button type="submit" class="btn-large lime darken-4">Update Event</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
