@@ -65,6 +65,7 @@ Known limitations of **EventFlow**:
 - **RSVP Functionality**: Users can RSVP to events and update their attendance.
 - **Flash Messages**: Confirmation messages are displayed for actions like adding or deleting events.
 - **Admin Dashboard**: Admin users can manage categories and events from a dedicated interface.
+- **Advanced Search**: Users can search events using filters for event categories, dates, and locations.
 
 ## Technologies Used
 
@@ -207,7 +208,6 @@ heroku run flask db upgrade
 - **User Authentication**: Implement login functionality for users to manage their own events.
 - **Calendar Integration**: Sync with Google Calendar for better event scheduling.
 - **Email Notifications**: Automatically notify users of upcoming events they RSVP’d for.
-- **Advanced Search**: Add filters for event categories, dates, and locations.
 
 ## Credits
 - **Flask Documentation**: For backend functionality.
