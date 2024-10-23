@@ -53,3 +53,22 @@
     </form>
 
     <!-- Sorting options -->
+    <div class="row center-align">
+        <a href="{{ url_for('home', sort_by='date', order='asc') }}" class="btn-small lime darken-4">Sort by Date (Asc)</a>
+        <a href="{{ url_for('home', sort_by='date', order='desc') }}" class="btn-small lime darken-4">Sort by Date (Desc)</a>
+    </div>
+
+    <!-- Featured Events Section -->
+    <h3 class="center-align lime-text text-darken-4">Featured Events</h3>
+    <ul class="collection">
+        {% if featured_events %}
+            {% for event in featured_events %}
+                <li class="collection-item">
+                    <a href="{{ url_for('event_detail', event_id=event.id) }}" class="lime-text text-darken-4">{{ event.event_title }}</a>
+                    <p>{{ event.event_date|dateformat }} at {{ event.location }} | {{ event.event_time.strftime('%H:%M') }}</p>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li class="collection-item">No featured events.</li>
+        {% endif %}
+    </ul>
