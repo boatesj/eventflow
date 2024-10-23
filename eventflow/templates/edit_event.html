@@ -30,6 +30,36 @@
             <label for="time" class="active">Event Time</label>
         </div>
 
+        <!-- Event Location -->
+        <div class="input-field col s12">
+            <input type="text" name="location" id="location" value="{{ event.location }}" required>
+            <label for="location" class="active">Event Location</label>
+        </div>
+
+        <!-- Event Category Dropdown -->
+        <div class="input-field col s12">
+            <select name="category_id" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if event.category_id == category.id %}selected{% endif %}>{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+            <label for="category_id">Event Category</label>
+        </div>
+
+        <!-- Featured Checkbox -->
+        <div class="input-field col s12">
+            <label>
+                <input type="checkbox" name="featured" value="1" {% if event.featured %}checked{% endif %} />
+                <span>Mark as Featured</span>
+            </label>
+        </div>
+
+        <!-- Event Image Upload -->
+        <div class="input-field col s12" style="margin-top: 30px;">
+            <label for="image" style="margin-top: 10px;">Upload Event Image (optional)</label>
+            <input type="file" name="image" id="image" accept="image/*">
+        </div>
+
         
         <!-- Submit Button -->
         <div class="row">
