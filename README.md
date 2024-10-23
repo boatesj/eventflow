@@ -85,7 +85,7 @@ To run **EventFlow** locally:
 
 1. Clone this repository:
  
-   git clone https://github.com/yourusername/eventflowmax.git
+   git clone https://github.com/boatesj/eventflow
 
 2. Navigate to the directory:
    
