@@ -213,7 +213,7 @@ heroku run flask db upgrade
 - **Flask Documentation**: For backend functionality.
 - **PostgreSQL Documentation**: For database management and queries.
 - **Unsplash**: For placeholder images used in the app.
-- **Bootstrap 5**: For responsive design components.
+- **Google Materializecss**: For responsive design components.
 
 ## License
 This project is licensed under the MIT License.
@@ -392,7 +392,7 @@ The homepage provides users with an overview of all available events, along with
 
 ### 4. Event Detail Page
 Each event has a dedicated detail page that provides users with comprehensive information:
-- **Event Description**: A full description of the event, including the date, time, and location.
+- **Event Description**: A full description of the event, including the date, time, image and location.
 - **RSVP Feature**: Users can confirm their attendance by clicking the RSVP button. Upon submitting an RSVP, the user receives a flash confirmation message to confirm their RSVP.
 - **Edit Event**: For admins, the event detail page provides an option to edit the event’s details. Admins can update any of the event fields and re-upload images if necessary.
 - **Delete Event**: Admins can also delete events directly from the detail page. A confirmation message ensures that events are only deleted with admin approval.
@@ -426,7 +426,7 @@ The dashboard is designed to provide admins with quick access to important metri
   - It also offers links to manage existing events and categories, giving admins full control over the platform's content.
 
 - **Dynamically Created Event Detail Pages**: 
-  - Each event has its own dynamically generated detail page, displaying key information such as the event title, description, date, time, location, and category.
+  - Each event has its own dynamically generated detail page, displaying key information such as the event title, description, date, time, location, image and category.
   - Users can RSVP directly from this page, with a flash confirmation message appearing upon successful RSVP submission.
 
 ### 2. Responsive Design
