@@ -515,21 +515,21 @@ During the development and ongoing maintenance of **EventFlow**, several key iss
 
 ### Automated Testing
 
-- **W3C Markup Validator**: All HTML pages in **EventFlow** were validated using the W3C Markup Validator to ensure there were no syntax errors and that the code followed web standards. Each page passed the validation process without issues.
+- **W3C Markup Validator**: All HTML pages in **EventFlow** were validated using the W3C Markup Validator to ensure there were no syntax errors and that the code followed web standards. Each page passed the validation process without issues. [Check HTML Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Feventflowmax-3d21a4c0c847.herokuapp.com%2F)
 
-- **W3C CSS Validator**: The custom CSS and MaterializeCSS were validated using the W3C CSS Validator. The styling passed the validation with no errors, ensuring the website's layout is both responsive and compliant with CSS standards.
+- **W3C CSS Validator**: The custom CSS and MaterializeCSS were validated using the W3C CSS Validator. While the custom CSS passed validation without any errors, an issue was found in the MaterializeCSS library. Specifically, a minor validation error related to the letter-spacing property in MaterializeCSS was flagged, indicating that a unit was missing for the value 0.4. Since this issue is part of the external library and does not impact the functionality or responsiveness of the website, I decided to leave it unchanged. Despite this external issue, the custom CSS was confirmed to be fully compliant with web standards, ensuring that the website's layout remains responsive and functions correctly across all devices. [Check CSS Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Feventflowmax-3d21a4c0c847.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
-- **JavaScript Linting**: Custom JavaScript, including code for event filtering, RSVP submissions, and dynamic form handling, was tested using linting tools to ensure it adhered to best practices and contained no errors.
+- **JavaScript Linting**: Custom JavaScript, including code for event filtering, RSVP submissions, and dynamic form handling, was tested using linting tools to ensure it adhered to best practices and contained no errors. [Check JSHint Validation](/eventflow/static/wireframes/JSHint-ef.png)
 
 - **Python (PEP8) Validation**: The Python code used in **EventFlow**, including Flask routes, models, and other logic, was validated using PEP8 standards. Tools like flake8 and pylint were used to ensure that the code is clean, readable, and follows Python's style guidelines.
 
 - **Flask Testing Suite**: Python’s built-in unittest framework was used to create automated tests for Flask routes and back-end logic. The test cases ensured that routes for creating events, RSVPs, and category management were functioning correctly and that server responses were accurate.
 
-- **Lighthouse Testing**: Google Lighthouse was used to test the performance, accessibility, SEO, and best practices of the website. The results were excellent, showing good performance scores and accessibility compliance with web standards.
+- **Lighthouse Testing**: Google Lighthouse was used to test the performance, accessibility, SEO, and best practices of the website. The results were excellent, showing good performance scores and accessibility compliance with web standards. [Check Lighthouse testing](https://lighthouse-metrics.com/lighthouse/checks/ca7e3ae7-22bd-4b67-93bb-019ce217faf5)
 
 ### Manual Testing
 
-For detailed manual testing results, please refer to the `manual.md` file. Below is a summary of the main manual tests conducted:
+For detailed manual testing information, please refer to the [testing documentation](./testing.md). Below is a summary of the main manual tests conducted:
 
 #### Testing User Stories from User Experience (UX) Section
 
