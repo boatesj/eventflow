@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+    <h3 class="center-align lime-text text-darken-4">Admin Dashboard</h3>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card-panel">
+                <h5>Total Events: {{ total_events }}</h5>
+                <h5>Total RSVPs: {{ total_rsvps }}</h5>
+            </div>
+        </div>
+    </div>
+
+    
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
