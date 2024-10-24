@@ -126,6 +126,60 @@ To run **EventFlow** locally:
 
 # Database Structure
 
+## 1. Category Table
+
+| Column Name     | Data Type  | Constraints          |
+|-----------------|------------|----------------------|
+| `id`            | Integer    | Primary Key          |
+| `category_name` | String(50) | Unique, Not Null     |
+
+- **Description**: Handles different event categories, allowing events to be organized into various groups.
+
+## 2. Event Table
+
+| Column Name        | Data Type   | Constraints             |
+|--------------------|-------------|-------------------------|
+| `id`               | Integer     | Primary Key             |
+| `event_title`      | String(100) | Unique, Not Null        |
+| `event_description`| Text        | Not Null                |
+| `event_date`       | DateTime    | Not Null                |
+| `event_time`       | String(8)   | Not Null                |
+| `location`         | String(200) | Not Null                |
+| `created_at`       | DateTime    | Not Null (Default UTC)  |
+| `featured`         | Boolean     | Default False           |
+| `category_id`      | Integer     | Foreign Key (`category.id`), Nullable |
+| `image_file`       | String(120) | Nullable                |
+
+- **Description**: Stores the event's details like title, description, date, time, location, and category association.
+
+## 3. RSVP Table
+
+| Column Name   | Data Type  | Constraints            |
+|---------------|------------|------------------------|
+| `id`          | Integer    | Primary Key            |
+| `event_id`    | Integer    | Foreign Key (`event.id`), Not Null |
+| `name`        | String(100)| Not Null               |
+| `email`       | String(100)| Not Null               |
+| `attending`   | Boolean    | Default False          |
+
+- **Description**: Tracks RSVPs for events by storing the user's name, email, and whether they will attend the event.
+
+---
+
+## Relationships
+
+- **One-to-Many** between **Category** and **Event** (a category can have many events).
+- **One-to-Many** between **Event** and **RSVP** (an event can have many RSVPs).
+
+---
+
+## SQLAlchemy Relationships (Reference from `models.py`)
+
+- In the **`Category`** model:
+  ```python
+  events = db.relationship('Event', backref='category', lazy=True)
+
+
 The database for EventFlow consists of three main models:
 
 ## 1. Category Model
@@ -150,7 +204,6 @@ The database for EventFlow consists of three main models:
   - `event_id`: Foreign key linking to the Event model
   - `user_email`: Email of the user who RSVPs
 - **Description:** Tracks RSVPs for events by storing the user’s email and associating it with the event they registered for.
-
 
 # Deployment
 
@@ -355,6 +408,56 @@ Wireframes were created to outline the structure and layout of the **EventFlow**
 - **Tablet Wireframe**: ![View Tablet Wireframe](/eventflow/static/wireframes/eventflowApp-tablet.png)
 <br><br>
 - **Mobile Wireframe**: ![View Mobile Wireframe](/eventflow/static/wireframes/EventflowApp-mob.png)
+
+# EventFlow Sitemap
+- **Sitemap**: ![View Tablet Wireframe](/eventflow/static/wireframes/sitemappng.png)
+
+
+## 1. **Home Page** (`/`)
+- Displays a list of upcoming and featured events.
+- Provides a search functionality for events based on title, description, category, date, and location.
+- Links to event detail pages.
+
+## 2. **Event Detail Page** (`/event/<event_id>`)
+- Displays detailed information about a specific event, including title, description, date, time, location, and event image.
+- Allows users to RSVP for the event.
+- Users can navigate back to the home page or search for more events.
+
+## 3. **Add Event Page** (`/add_event`)
+- Admin-only access.
+- Provides a form for creating a new event, including fields for title, description, date, time, location, category, and image upload.
+- Submits data to create a new event in the system.
+
+## 4. **Edit Event Page** (`/edit_event/<event_id>`)
+- Admin-only access.
+- Displays a form pre-filled with the event details, allowing the admin to update the event's title, description, date, time, location, category, and image.
+- Submits changes to update the event in the system.
+
+## 5. **Admin Dashboard** (`/admin_dashboard`)
+- Admin-only access.
+- Provides an overview of the total number of events and RSVPs.
+- Links to event management pages (add, edit, and delete events).
+- Allows admins to manage the events and track RSVPs.
+
+## 6. **Category Management Page** (`/manage_categories`)
+- Admin-only access.
+- Allows admins to create new categories and manage existing ones (edit or delete).
+- Categories organize events into groups such as "Workshops" or "Conferences."
+
+## 7. **RSVP Page** (`/rsvp/<event_id>`)
+- Allows users to submit an RSVP for a particular event, providing their name and email.
+- Updates the event's RSVP list and allows users to view their attendance status.
+
+---
+
+### User Flow Overview
+- **Regular Users**: Navigate from the Home Page to Event Details, RSVP, or Search Events.
+- **Admin Users**: Access Admin Dashboard, Add/Edit/Delete Events, and Manage Categories.
+
+---
+
+This sitemap reflects the pages and navigation structure of the EventFlow app without user authentication. Let me know if you need any more adjustments!
+
 
 ## Features
 
