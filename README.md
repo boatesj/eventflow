@@ -424,23 +424,19 @@ Wireframes were created to outline the structure and layout of the **EventFlow**
 - Users can navigate back to the home page or search for more events.
 
 ## 3. **Add Event Page** (`/add_event`)
-- Admin-only access.
 - Provides a form for creating a new event, including fields for title, description, date, time, location, category, and image upload.
 - Submits data to create a new event in the system.
 
 ## 4. **Edit Event Page** (`/edit_event/<event_id>`)
-- Admin-only access.
 - Displays a form pre-filled with the event details, allowing the admin to update the event's title, description, date, time, location, category, and image.
 - Submits changes to update the event in the system.
 
 ## 5. **Admin Dashboard** (`/admin_dashboard`)
-- Admin-only access.
 - Provides an overview of the total number of events and RSVPs.
 - Links to event management pages (add, edit, and delete events).
 - Allows admins to manage the events and track RSVPs.
 
 ## 6. **Category Management Page** (`/manage_categories`)
-- Admin-only access.
 - Allows admins to create new categories and manage existing ones (edit or delete).
 - Categories organize events into groups such as "Workshops" or "Conferences."
 
